@@ -56,10 +56,10 @@ function App() {
       return todosList
     },
     active: () => {
-      return todosList.filter(item => !item.checked)
+      return todosList.filter(item => item.checked)
     },
     completed: () => {
-      return todosList.filter(item => item.checked)
+      return todosList.filter(item => !item.checked)
     }
   }
 
@@ -96,7 +96,7 @@ function App() {
 
   const footerElement = () => {
     return (
-      <ul className='footer-actions'>
+      todosList.length ? <ul className='footer-actions'>
         <li>{filterChecked.length}item left</li>
         <div className='footer-center'>
           <li
@@ -117,12 +117,13 @@ function App() {
         </div>
         {filters.length ? <li className='clear' onClick={clearTodos}>Clear Completed</li> : ''}
       </ul>
+      : ""
     )
   }
 
   return (
     <div className="App">
-      <h1 className='todos-title'>todos</h1>
+      <h1 className='todos-title'>Todos</h1>
       <div className='todos-action'>
         <div className="todos-head">
           {todosList.length ? <span onClick={selectAll}>全选</span> : ''}
