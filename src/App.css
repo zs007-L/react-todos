@@ -16,6 +16,8 @@
   display: flex;
   align-items: center;
   background: #fff;
+  position: relative;
+  z-index: 100;
 }
 
 .todos-head span {
@@ -76,6 +78,7 @@
   align-items: center;
   border-top: 1px solid #ededed;
   position: relative;
+  z-index: 10;
 }
 
 .footer-center {

@@ -51,22 +51,37 @@ function App() {
     }
   }
 
-  const listLis = todosList.map((item, index) => (
-    <div key={index}>
-      <li>
-        <div className={`${item.checked ? 'delete-line' : ''}`}>
-          <input
-            className='checkbox'
-            type="checkbox"
-            checked={item.checked}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleCheckbox(e, index)}
-          />
-          {item.title}
-        </div>
-        <span className='delete' onClick={() => handleDelete(index)}>删除</span>
-      </li>
-    </div>
-  ))
+  const toggleState: Record<State, () => TodosList[]> = {
+    all: () => {
+      return todosList
+    },
+    active: () => {
+      return todosList.filter(item => !item.checked)
+    },
+    completed: () => {
+      return todosList.filter(item => item.checked)
+    }
+  }
+
+  const listLis = () => {
+    const data = toggleState[state]()
+    return data.map((item, index) => (
+      <div key={index}>
+        <li>
+          <div className={`${item.checked ? 'delete-line' : ''}`}>
+            <input
+              className='checkbox'
+              type="checkbox"
+              checked={item.checked}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleCheckbox(e, index)}
+            />
+            {item.title}
+          </div>
+          <span className='delete' onClick={() => handleDelete(index)}>删除</span>
+        </li>
+      </div>
+    ))
+  }
 
   const filterChecked = todosList.filter((item => !item.checked))
 
@@ -121,7 +136,7 @@ function App() {
           />
         </div>
         <ul className='todos-list'>
-          {listLis}
+          {listLis()}
         </ul>
         {footerElement()}
       </div>
