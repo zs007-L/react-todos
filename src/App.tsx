@@ -28,7 +28,7 @@ function App() {
       if (filters.length === todosList.length) {
         item.checked = false
       } else {
-        item.checked = true;
+        item.checked = true
       }
       return item
     }))
